@@ -24,7 +24,7 @@ Contributions are welcome! If you'd like to add more rules (like Powerplay restr
   
   [![Repo Size](https://img.shields.io/github/repo-size/viperrxd/Interactive-Cricket-Rulebook?style=for-the-badge&color=FFD700)](https://github.com/viperrxd/Interactive-Cricket-Rulebook)
   [![License](https://img.shields.io/github/license/viperrxd/Interactive-Cricket-Rulebook?style=for-the-badge&color=008000)](https://github.com/viperrxd/Interactive-Cricket-Rulebook/blob/main/LICENSE)
-  [![Live Demo](https://img.shields.io/badge/Demo-Live%20Now-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://viperrxd.github.io/Interactive-Cricket-Rulebook/)
+  [![Live Demo](https://img.shields.io/badge/Demo-Live%20Now-blue?style=for-the-badge&logo=google-chrome&logoColor=white)](https://cricketrulebook.pages.dev/)
 
 </div>
 
