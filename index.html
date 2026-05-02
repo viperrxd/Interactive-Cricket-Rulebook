@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Cricket Rulebook — Visual, interactive explainers for the DLS method and LBW rule. Drag sliders, click on the pitch, and learn cricket's trickiest rules instantly.">
+    <title>Interactive Cricket Rulebook | DLS &amp; LBW Explained Visually</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="main-nav">
+    <a href="#" class="nav-logo">🏏 CricketRules</a>
+    <ul class="nav-links">
+        <li><a href="#dls-section">DLS Method</a></li>
+        <li><a href="#lbw-section">LBW Rule</a></li>
+    </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="hero-badge">⚡ Interactive Learning</div>
+    <h1>Cricket Rules,<br><span class="highlight">Made Visual</span></h1>
+    <p>Stop reading walls of text. Drag sliders to understand DLS targets. Click on the pitch to simulate LBW decisions. Learn by doing.</p>
+    <div class="hero-buttons">
+        <a href="#dls-section" class="btn btn-primary">📊 Explore DLS Method</a>
+        <a href="#lbw-section" class="btn btn-secondary">🎯 Try LBW Simulator</a>
+    </div>
+</section>
+
+<!-- ===== DLS METHOD SECTION ===== -->
+<section class="section" id="dls-section">
+    <div class="section-header animate-in">
+        <div class="section-label green">📊 Module 1</div>
+        <h2>Duckworth-Lewis-Stern Method</h2>
+        <p>When rain interrupts a match, how is the target adjusted? Move the sliders to see how wickets lost and overs remaining change the revised target in real time.</p>
+    </div>
+
+    <div class="dls-layout animate-in">
+        <!-- Controls -->
+        <div class="card dls-controls">
+            <div class="control-group">
+                <label for="dls-overs">Overs Remaining</label>
+                <div class="slider-row">
+                    <input type="range" id="dls-overs" min="0" max="50" value="30" step="1">
+                    <span class="slider-value" id="dls-overs-val">30</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="dls-wickets">Wickets Lost</label>
+                <div class="slider-row">
+                    <input type="range" id="dls-wickets" min="0" max="10" value="2" step="1">
+                    <span class="slider-value" id="dls-wickets-val">2</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="dls-score">Team 1 Score (full innings)</label>
+                <input type="number" class="score-input" id="dls-score" value="250" min="0" max="500">
+            </div>
+
+            <!-- Resource Gauge -->
+            <div class="gauge-container">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span style="font-size:0.8rem;color:var(--text-muted);">Resources Remaining</span>
+                    <span style="font-size:0.9rem;font-weight:700;color:var(--accent-green);" id="gauge-pct">67.3%</span>
+                </div>
+                <div class="gauge-bar-track">
+                    <div class="gauge-bar-fill" id="gauge-fill" style="width:67.3%"></div>
+                </div>
+                <div class="gauge-label">
+                    <span>0%</span><span>50%</span><span>100%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div class="card" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="dls-result" id="dls-result">
+                <div class="label">Revised Target</div>
+                <div class="target" id="dls-target">169</div>
+                <div class="sub" id="dls-sub">Team 2 needs 169 runs in 30 overs</div>
+            </div>
+
+            <div style="margin-top:1.5rem;padding:1rem;background:var(--bg-glass);border-radius:var(--radius-sm);border:1px solid var(--border-glass);">
+                <div style="font-size:0.8rem;font-weight:600;color:var(--accent-teal);margin-bottom:0.5rem;">💡 How it works</div>
+                <p style="font-size:0.83rem;color:var(--text-secondary);line-height:1.6;" id="dls-explanation">
+                    With <strong>30 overs</strong> and <strong>8 wickets in hand</strong>, Team 2 has <strong>67.3%</strong> of their batting resources remaining. The target is scaled proportionally from Team 1's score.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Heatmap -->
+    <div class="card heatmap-wrapper animate-in" style="margin-top:2rem;">
+        <h3>📋 Resource Percentage Table</h3>
+        <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">Each cell shows the % of batting resources remaining. The highlighted cell matches your slider settings.</p>
+        <div class="heatmap-scroll">
+            <table class="heatmap-table" id="heatmap-table">
+                <!-- Generated by JS -->
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LBW SECTION ===== -->
+<section class="section" id="lbw-section">
+    <div class="section-header animate-in">
+        <div class="section-label gold">🎯 Module 2</div>
+        <h2>LBW Rule Simulator</h2>
+        <p>Leg Before Wicket is cricket's most debated dismissal. Click on the pitch to place the ball's pitching point and impact point, then see the verdict instantly.</p>
+    </div>
+
+    <div class="lbw-layout animate-in">
+        <!-- Pitch -->
+        <div class="lbw-pitch-container">
+            <div class="pitch-instructions">
+                <div class="step-indicator" id="lbw-step">① Click to set pitching point</div>
+            </div>
+            <div class="pitch-svg-wrap card" style="padding:0;" id="pitch-container">
+                <svg id="pitch-svg" viewBox="0 0 300 480" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Pitch background -->
+                    <defs>
+                        <linearGradient id="pitchGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#2d5a27"/>
+                            <stop offset="50%" stop-color="#3a7233"/>
+                            <stop offset="100%" stop-color="#2d5a27"/>
+                        </linearGradient>
+                        <linearGradient id="stripGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#c4a96a"/>
+                            <stop offset="100%" stop-color="#b89a5a"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Outfield -->
+                    <rect x="0" y="0" width="300" height="480" fill="url(#pitchGrad)"/>
+
+                    <!-- Pitch strip -->
+                    <rect x="100" y="20" width="100" height="440" rx="4" fill="url(#stripGrad)" opacity="0.5"/>
+
+                    <!-- Zone labels at top -->
+                    <text x="80" y="15" fill="rgba(255,255,255,0.5)" font-size="9" text-anchor="middle" font-family="Inter">LEG SIDE</text>
+                    <text x="150" y="15" fill="rgba(255,255,255,0.5)" font-size="9" text-anchor="middle" font-family="Inter">IN LINE</text>
+                    <text x="220" y="15" fill="rgba(255,255,255,0.5)" font-size="9" text-anchor="middle" font-family="Inter">OFF SIDE</text>
+
+                    <!-- Zone dividers (stump lines extended) -->
+                    <line x1="130" y1="25" x2="130" y2="460" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
+                    <line x1="170" y1="25" x2="170" y2="460" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="6,4"/>
+
+                    <!-- Outside leg zone overlay -->
+                    <rect x="0" y="20" width="130" height="440" fill="rgba(239,68,68,0.05)" rx="2"/>
+                    <!-- In-line zone overlay -->
+                    <rect x="130" y="20" width="40" height="440" fill="rgba(16,185,129,0.06)" rx="0"/>
+                    <!-- Outside off zone overlay -->
+                    <rect x="170" y="20" width="130" height="440" fill="rgba(59,130,246,0.05)" rx="2"/>
+
+                    <!-- Bowling crease (bowler's end) -->
+                    <line x1="80" y1="60" x2="220" y2="60" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                    <!-- Popping crease (bowler's end) -->
+                    <line x1="80" y1="75" x2="220" y2="75" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+
+                    <!-- Bowling crease (batsman's end) -->
+                    <line x1="80" y1="420" x2="220" y2="420" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+                    <!-- Popping crease (batsman's end) -->
+                    <line x1="80" y1="400" x2="220" y2="400" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+
+                    <!-- Stumps (batsman's end) -->
+                    <rect x="137" y="418" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.9"/><!-- leg stump -->
+                    <rect x="148" y="418" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.9"/><!-- middle -->
+                    <rect x="159" y="418" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.9"/><!-- off stump -->
+                    <!-- Bails -->
+                    <rect x="136" y="416" width="28" height="3" rx="1.5" fill="#f5d280" opacity="0.8"/>
+
+                    <!-- Stumps (bowler's end) -->
+                    <rect x="137" y="48" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.6"/>
+                    <rect x="148" y="48" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.6"/>
+                    <rect x="159" y="48" width="4" height="14" rx="1" fill="#e8d5a3" opacity="0.6"/>
+                    <rect x="136" y="46" width="28" height="3" rx="1.5" fill="#f5d280" opacity="0.5"/>
+
+                    <!-- Stump zone for hit detection (invisible) -->
+                    <rect x="135" y="418" width="30" height="14" fill="transparent" id="stump-zone"/>
+
+                    <!-- Interactive layer (markers will be added here by JS) -->
+                    <g id="lbw-markers"></g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Controls & Verdict -->
+        <div class="lbw-controls">
+            <div class="card">
+                <div style="font-size:0.85rem;font-weight:600;color:var(--accent-gold);margin-bottom:0.75rem;">⚙️ Settings</div>
+
+                <div class="toggle-group">
+                    <span class="toggle-label">Shot Offered</span>
+                    <div class="toggle-switch active" id="toggle-shot" data-active="true"></div>
+                </div>
+
+                <div class="toggle-group" style="margin-top:0.5rem;">
+                    <span class="toggle-label">Right-Handed Batsman</span>
+                    <div class="toggle-switch active" id="toggle-hand" data-active="true"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="font-size:0.85rem;font-weight:600;color:var(--accent-gold);margin-bottom:0.75rem;">⚡ Quick Scenarios</div>
+                <div class="presets">
+                    <button class="preset-btn" data-preset="classic-out">Classic LBW Out</button>
+                    <button class="preset-btn" data-preset="outside-leg">Pitched Outside Leg</button>
+                    <button class="preset-btn" data-preset="impact-outside-off">Impact Outside Off</button>
+                    <button class="preset-btn" data-preset="missing-stumps">Missing Stumps</button>
+                    <button class="preset-btn" data-preset="umpires-call">Umpire's Call</button>
+                </div>
+            </div>
+
+            <div class="verdict-panel waiting" id="verdict-panel">
+                <div style="color:var(--text-muted);font-size:0.9rem;">
+                    🏏 Click on the pitch to begin
+                </div>
+            </div>
+
+            <div class="card explanation-steps" id="explanation-panel" style="display:none;">
+                <!-- Populated by JS -->
+            </div>
+
+            <button class="btn-reset" id="lbw-reset">🔄 Reset Pitch</button>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>Interactive Cricket Rulebook — Built for cricket fans who want clarity, not confusion.</p>
+    <p style="margin-top:0.5rem;">⚠️ DLS values are approximations of the Standard Edition for educational purposes. Not for official use.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
